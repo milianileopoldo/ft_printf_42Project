@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int ft_printf(const char *format, ...)
+void ft_printf(const char *format, ...)
 {
     va_list args;
+    const char *str;
     int i;
     int num;
 
@@ -17,6 +18,12 @@ int ft_printf(const char *format, ...)
             printf("%d", num);
             i += 2;
         }
+        else if (format[i] == '%' && format[i + 1] == 's')
+        {
+            str = va_arg(args, char *);
+            printf("%s", str);
+            i += 2;
+        }
         else
         {
             putchar(format[i]);
@@ -24,10 +31,9 @@ int ft_printf(const char *format, ...)
         }
     }
     va_end(args);
-    return (0);
 }
 
 int main()
 {
-    ft_printf("hi %d %%!!", 42);
+    ft_printf("hi %d %s!", 42, "Abu Dhabi");
 }
